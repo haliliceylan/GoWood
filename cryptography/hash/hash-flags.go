@@ -36,6 +36,8 @@ func (hf *HashFlags) Do() error {
 		currentAlgorithm = &MD5{}
 	case "sha256":
 		currentAlgorithm = &SHA256{}
+	case "sha512":
+		currentAlgorithm = &SHA512{}
 	default:
 		log.Fatalf("No Algorithm Name %s", hf.algorithm)
 	}
