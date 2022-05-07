@@ -41,6 +41,8 @@ func (af *AsymmetricFlags) Do() error {
 	switch af.algorithm {
 	case "aes":
 		currentAlgorithm = &block.AES{}
+	case "blowfish":
+		currentAlgorithm = &block.Blowfish{}
 	default:
 		log.Fatalf("No Algorithm Name %s", af.algorithm)
 	}
