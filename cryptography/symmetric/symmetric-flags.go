@@ -1,4 +1,4 @@
-package asymmetric
+package symmetric
 
 import (
 	"encoding/base64"
@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/haliliceylan/gowood/cryptography/asymmetric/block"
+	"github.com/haliliceylan/gowood/cryptography/symmetric/block"
 	"github.com/haliliceylan/gowood/utils"
 )
 
-type AsymmetricFlags struct {
+type SymmetricFlags struct {
 	algorithm string        // algortihm
 	filename  string        // file
 	str       string        // string
@@ -20,13 +20,13 @@ type AsymmetricFlags struct {
 	flagSet   *flag.FlagSet // flagset
 }
 
-func MakeAsymmetricFlags(fg *flag.FlagSet) *AsymmetricFlags {
-	return &AsymmetricFlags{
+func MakeSymmetricFlags(fg *flag.FlagSet) *SymmetricFlags {
+	return &SymmetricFlags{
 		flagSet: fg,
 	}
 }
 
-func (af *AsymmetricFlags) Prepare() {
+func (af *SymmetricFlags) Prepare() {
 	af.flagSet.StringVar(&af.algorithm, "algorithm", "aes", "hash algorithm")
 	af.flagSet.StringVar(&af.publicKey, "public", "", "public key should be the AES key, either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256")
 	af.flagSet.StringVar(&af.mode, "mode", "encrypt", "encrypt/decrypt")
@@ -35,8 +35,8 @@ func (af *AsymmetricFlags) Prepare() {
 	af.flagSet.BoolVar(&af.stdin, "stdin", false, "should get input from stdin")
 }
 
-func (af *AsymmetricFlags) Do() error {
-	var currentAlgorithm AsymmetricAlgorithm
+func (af *SymmetricFlags) Do() error {
+	var currentAlgorithm SymmetricAlgorithm
 
 	switch af.algorithm {
 	case "aes":

@@ -1,6 +1,6 @@
-package asymmetric
+package symmetric
 
-type AsymmetricAlgorithm interface {
+type SymmetricAlgorithm interface {
 	SetPublicKey([]byte)
 	Encrypt([]byte) []byte
 	Decrypt([]byte) []byte

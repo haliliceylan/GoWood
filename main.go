@@ -4,24 +4,24 @@ import (
 	"flag"
 	"os"
 
-	"github.com/haliliceylan/gowood/cryptography/asymmetric"
 	"github.com/haliliceylan/gowood/cryptography/hash"
+	"github.com/haliliceylan/gowood/cryptography/symmetric"
 )
 
 func main() {
 	hashFlagSet := flag.NewFlagSet("hash", flag.ExitOnError)
 	hf := hash.MakeHashFlags(hashFlagSet)
-	AsymmetricFlagSet := flag.NewFlagSet("asymmetric", flag.ExitOnError)
-	af := asymmetric.MakeAsymmetricFlags(AsymmetricFlagSet)
+	SymmetricFlagSet := flag.NewFlagSet("symmetric", flag.ExitOnError)
+	af := symmetric.MakeSymmetricFlags(SymmetricFlagSet)
 
 	switch os.Args[1] {
 	case "hash":
 		hf.Prepare()
 		hashFlagSet.Parse(os.Args[2:])
 		hf.Do()
-	case "asymmetric":
+	case "symmetric":
 		af.Prepare()
-		AsymmetricFlagSet.Parse(os.Args[2:])
+		SymmetricFlagSet.Parse(os.Args[2:])
 		af.Do()
 	}
 }
