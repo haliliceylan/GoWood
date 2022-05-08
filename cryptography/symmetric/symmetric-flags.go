@@ -43,6 +43,8 @@ func (af *SymmetricFlags) Do() error {
 		currentAlgorithm = &block.AES{}
 	case "blowfish":
 		currentAlgorithm = &block.Blowfish{}
+	case "des":
+		currentAlgorithm = &block.DES{}
 	default:
 		log.Fatalf("No Algorithm Name %s", af.algorithm)
 	}
@@ -77,6 +79,7 @@ func (af *SymmetricFlags) Do() error {
 		result = currentAlgorithm.Decrypt(input)
 		fmt.Printf("%s", string(result))
 	}
+
 	fmt.Println()
 
 	return nil
