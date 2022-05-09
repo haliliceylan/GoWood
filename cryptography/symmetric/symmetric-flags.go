@@ -28,7 +28,7 @@ func MakeSymmetricFlags(fg *flag.FlagSet) *SymmetricFlags {
 
 func (af *SymmetricFlags) Prepare() {
 	af.flagSet.StringVar(&af.algorithm, "algorithm", "aes", "hash algorithm")
-	af.flagSet.StringVar(&af.publicKey, "public", "", "public key should be the AES key, either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256")
+	af.flagSet.StringVar(&af.publicKey, "public", "", "public key")
 	af.flagSet.StringVar(&af.mode, "mode", "encrypt", "encrypt/decrypt")
 	af.flagSet.StringVar(&af.filename, "filename", "", "input file name")
 	af.flagSet.StringVar(&af.str, "string", "", "input string")
