@@ -26,19 +26,19 @@ func MakeSymmetricFlags(fg *flag.FlagSet) *SymmetricFlags {
 	}
 }
 
-func (af *SymmetricFlags) Prepare() {
-	af.flagSet.StringVar(&af.algorithm, "algorithm", "aes", "hash algorithm")
-	af.flagSet.StringVar(&af.publicKey, "public", "", "public key")
-	af.flagSet.StringVar(&af.mode, "mode", "encrypt", "encrypt/decrypt")
-	af.flagSet.StringVar(&af.filename, "filename", "", "input file name")
-	af.flagSet.StringVar(&af.str, "string", "", "input string")
-	af.flagSet.BoolVar(&af.stdin, "stdin", false, "should get input from stdin")
+func (sf *SymmetricFlags) Prepare() {
+	sf.flagSet.StringVar(&sf.algorithm, "algorithm", "aes", "hash algorithm")
+	sf.flagSet.StringVar(&sf.publicKey, "public", "", "public key")
+	sf.flagSet.StringVar(&sf.mode, "mode", "encrypt", "encrypt/decrypt")
+	sf.flagSet.StringVar(&sf.filename, "filename", "", "input file name")
+	sf.flagSet.StringVar(&sf.str, "string", "", "input string")
+	sf.flagSet.BoolVar(&sf.stdin, "stdin", false, "should get input from stdin")
 }
 
-func (af *SymmetricFlags) Do() error {
+func (sf *SymmetricFlags) Do() error {
 	var currentAlgorithm SymmetricAlgorithm
 
-	switch af.algorithm {
+	switch sf.algorithm {
 	case "aes":
 		currentAlgorithm = &block.AES{}
 	case "blowfish":
@@ -46,31 +46,31 @@ func (af *SymmetricFlags) Do() error {
 	case "des":
 		currentAlgorithm = &block.DES{}
 	default:
-		log.Fatalf("No Algorithm Name %s", af.algorithm)
+		log.Fatalf("No Algorithm Name %s", sf.algorithm)
 	}
 
-	if af.publicKey == "" {
+	if sf.publicKey == "" {
 		log.Fatalf("you must provide a public key")
 	}
 
-	currentAlgorithm.SetPublicKey([]byte(af.publicKey))
+	currentAlgorithm.SetPublicKey([]byte(sf.publicKey))
 
 	var input []byte
-	if af.filename != "" {
-		input, _ = utils.ReadFile(af.filename)
+	if sf.filename != "" {
+		input, _ = utils.ReadFile(sf.filename)
 	}
 
-	if af.str != "" {
-		input = []byte(af.str)
+	if sf.str != "" {
+		input = []byte(sf.str)
 	}
 
-	if af.stdin {
+	if sf.stdin {
 		input, _ = utils.ReadStdin()
 	}
 
 	var result []byte
 
-	switch af.mode {
+	switch sf.mode {
 	case "encrypt":
 		result = currentAlgorithm.Encrypt(input)
 		fmt.Printf("%s", base64.URLEncoding.EncodeToString(result))
