@@ -19,7 +19,7 @@ cd gowood
 make build
 ./gowood
 ```
-**if you want to install as binary in your /usr/local/bin run ** `make install-usr-local` instead of `make install`
+**if you want to install as binary in your /usr/local/bin run** `make install-usr-local` instead of `make install`
 
 
 ### from release
