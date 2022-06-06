@@ -1,3 +1,5 @@
 gowood
 .vscode
 **/*.key
+build/*
+!build/.gitkeep
