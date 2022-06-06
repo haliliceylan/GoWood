@@ -24,6 +24,8 @@ make build
 
 ### from release
 
+you can select and download from [Releases](https://github.com/haliliceylan/GoWood/releases).
+
 
 # Algorithms
 
