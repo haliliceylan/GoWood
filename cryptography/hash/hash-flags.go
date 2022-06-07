@@ -13,6 +13,7 @@ type HashFlags struct {
 	algorithm string        // algortihm
 	filename  string        // file
 	str       string        // string
+	stdin     bool          // pipe mode
 	flagSet   *flag.FlagSet // flagset
 }
 
@@ -26,6 +27,7 @@ func (hf *HashFlags) Prepare() {
 	hf.flagSet.StringVar(&hf.algorithm, "algorithm", "md5", "hash algorithm")
 	hf.flagSet.StringVar(&hf.filename, "filename", "", "input file name")
 	hf.flagSet.StringVar(&hf.str, "string", "", "input string")
+	hf.flagSet.BoolVar(&hf.stdin, "stdin", false, "should get input from stdin")
 }
 
 func (hf *HashFlags) Do() error {
@@ -50,6 +52,10 @@ func (hf *HashFlags) Do() error {
 
 	if hf.str != "" {
 		input = []byte(hf.str)
+	}
+
+	if hf.stdin {
+		input, _ = utils.ReadStdin()
 	}
 
 	result, _ := currentAlgorithm.Hash(input)
